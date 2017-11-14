@@ -5,6 +5,7 @@ try {
   _fs = require('fs')
 }
 const jsmin = require('jsmin').jsmin
+const stripJsonComments = require('strip-json-comments')
 
 function readFile (file, options, callback) {
   if (callback == null) {
@@ -27,7 +28,85 @@ function readFile (file, options, callback) {
   fs.readFile(file, options, function (err, data) {
     if (err) return callback(err)
 
+    data = stripBom(data)
+
+    var obj
+    try {
+      obj = JSON.parse(data, options ? options.reviver : null)
+    } catch (err2) {
+      if (shouldThrow) {
+        err2.message = file + ': ' + err2.message
+        return callback(err2)
+      } else {
+        return callback(null, null)
+      }
+    }
+
+    callback(null, obj)
+  })
+}
+
+function readFileJSMin (file, options, callback) {
+  if (callback == null) {
+    callback = options
+    options = {}
+  }
+
+  if (typeof options === 'string') {
+    options = {encoding: options}
+  }
+
+  options = options || {}
+  var fs = options.fs || _fs
+
+  var shouldThrow = true
+  if ('throws' in options) {
+    shouldThrow = options.throws
+  }
+
+  fs.readFile(file, options, function (err, data) {
+    if (err) return callback(err)
+
     data = jsmin(stripBom(data))
+
+    var obj
+    try {
+      obj = JSON.parse(data, options ? options.reviver : null)
+    } catch (err2) {
+      if (shouldThrow) {
+        err2.message = file + ': ' + err2.message
+        return callback(err2)
+      } else {
+        return callback(null, null)
+      }
+    }
+
+    callback(null, obj)
+  })
+}
+
+function readFileStripComments (file, options, callback) {
+  if (callback == null) {
+    callback = options
+    options = {}
+  }
+
+  if (typeof options === 'string') {
+    options = {encoding: options}
+  }
+
+  options = options || {}
+  var fs = options.fs || _fs
+
+  var shouldThrow = true
+  if ('throws' in options) {
+    shouldThrow = options.throws
+  }
+
+  fs.readFile(file, options, function (err, data) {
+    if (err) return callback(err)
+
+    data = stripJsonComments(stripBom(data))
 
     var obj
     try {
@@ -129,7 +208,9 @@ var jsonfile = {
   readFile: readFile,
   readFileSync: readFileSync,
   writeFile: writeFile,
-  writeFileSync: writeFileSync
+  writeFileSync: writeFileSync,
+  readFileJSMin: readFileJSMin,
+  readFileStripComments: readFileStripComments
 }
 
 module.exports = jsonfile
