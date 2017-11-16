@@ -1,25 +1,26 @@
-Node.js - jsonfile
+Node.js - jsonfile-commentless
 ================
 
 Easily read/write JSON files.
 
-[![npm Package](https://img.shields.io/npm/v/jsonfile.svg?style=flat-square)](https://www.npmjs.org/package/jsonfile)
+[![npm Package](https://img.shields.io/npm/v/jsonfile.svg?style=flat-square)](https://www.npmjs.org/package/jsonfile-commentless)
+<!--
 [![build status](https://secure.travis-ci.org/jprichardson/node-jsonfile.svg)](http://travis-ci.org/jprichardson/node-jsonfile)
 [![windows Build status](https://img.shields.io/appveyor/ci/jprichardson/node-jsonfile/master.svg?label=windows%20build)](https://ci.appveyor.com/project/jprichardson/node-jsonfile/branch/master)
-
+-->
 <a href="https://github.com/feross/standard"><img src="https://cdn.rawgit.com/feross/standard/master/sticker.svg" alt="Standard JavaScript" width="100"></a>
 
 Why?
 ----
 
-Writing `JSON.stringify()` and then `fs.writeFile()` and `JSON.parse()` with `fs.readFile()` enclosed in `try/catch` blocks became annoying.
+Writing `JSON.stringify()` and then `fs.writeFile()` and `JSON.parse()` with `fs.readFile()` enclosed in `try/catch` blocks became annoying. Then not being able to strip comments with the standard jsonfile package also became annoying.
 
 
 
 Installation
 ------------
 
-    npm install --save jsonfile
+    npm install --save jsonfile-commentless
 
 
 
@@ -34,7 +35,7 @@ API
 
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 var file = '/tmp/data.json'
 jsonfile.readFile(file, function(err, obj) {
   console.dir(obj)
@@ -48,7 +49,7 @@ jsonfile.readFile(file, function(err, obj) {
 - `throws` (`boolean`, default: `true`). If an error is encountered reading or parsing the file, throw the error. If `false`, returns `null` for the object.
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 var file = '/tmp/data.json'
 
 console.dir(jsonfile.readFileSync(file))
@@ -61,7 +62,7 @@ console.dir(jsonfile.readFileSync(file))
 
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 
 var file = '/tmp/data.json'
 var obj = {name: 'JP'}
@@ -74,7 +75,7 @@ jsonfile.writeFile(file, obj, function (err) {
 **formatting with spaces:**
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 
 var file = '/tmp/data.json'
 var obj = {name: 'JP'}
@@ -87,7 +88,7 @@ jsonfile.writeFile(file, obj, {spaces: 2}, function(err) {
 **overriding EOL:**
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 
 var file = '/tmp/data.json'
 var obj = {name: 'JP'}
@@ -102,7 +103,7 @@ jsonfile.writeFile(file, obj, {spaces: 2, EOL: '\r\n'}, function(err) {
 You can use `fs.writeFile` option `{flag: 'a'}` to achieve this.
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 
 var file = '/tmp/mayAlreadyExistedData.json'
 var obj = {name: 'JP'}
@@ -117,7 +118,7 @@ jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
 `options`: Pass in any `fs.writeFileSync` options or set `replacer` for a [JSON replacer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify). Can also pass in `spaces` and override `EOL` string.
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 
 var file = '/tmp/data.json'
 var obj = {name: 'JP'}
@@ -128,7 +129,7 @@ jsonfile.writeFileSync(file, obj)
 **formatting with spaces:**
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 
 var file = '/tmp/data.json'
 var obj = {name: 'JP'}
@@ -139,7 +140,7 @@ jsonfile.writeFileSync(file, obj, {spaces: 2})
 **overriding EOL:**
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 
 var file = '/tmp/data.json'
 var obj = {name: 'JP'}
@@ -152,7 +153,7 @@ jsonfile.writeFileSync(file, obj, {spaces: 2, EOL: '\r\n'})
 You can use `fs.writeFileSync` option `{flag: 'a'}` to achieve this.
 
 ```js
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile-commentless')
 
 var file = '/tmp/mayAlreadyExistedData.json'
 var obj = {name: 'JP'}
@@ -165,4 +166,10 @@ License
 
 (MIT License)
 
+**Original Work** : https://github.com/jprichardson/node-jsonfile
+
 Copyright 2012-2016, JP Richardson  <jprichardson@gmail.com>
+
+**Modified Work** : https://github.com/z3dtech/node-jsonfile
+
+Copyright 2017, z3dtech <z@z3d.tech>

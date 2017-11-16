@@ -1,4 +1,8 @@
+4.0.0 / 2017-07-12
+------------------
+
 - **BREAKING:** Remove global `spaces` option.
+- **BREAKING:** Drop support for Node 0.10, 0.12, and io.js.
 - Remove undocumented `passParsingErrors` option.
 - Added `EOL` override option to `writeFile` when using `spaces`. [#89]
 
@@ -93,6 +97,7 @@ changes it according to docs. [#12][#12]
 ------------------
 * Initial release.
 
+[#89]: https://github.com/jprichardson/node-jsonfile/pull/89
 [#45]: https://github.com/jprichardson/node-jsonfile/issues/45    "Reading of UTF8-encoded (w/ BOM) files fails"
 [#44]: https://github.com/jprichardson/node-jsonfile/issues/44    "Extra characters in written file"
 [#43]: https://github.com/jprichardson/node-jsonfile/issues/43    "Prettyfy json when written to file"
